@@ -1,6 +1,4 @@
-import type { Tier } from "./types"
-
-export const TIER_COLORS: Record<Tier, string> = {
+export const TIER_COLORS: Record<string, string> = {
   LEGENDAIRE: "#FFD700",
   OR: "#C8A840",
   ARGENT: "#3A7A28",
@@ -8,7 +6,7 @@ export const TIER_COLORS: Record<Tier, string> = {
   STANDARD: "#585858",
 }
 
-export const TIER_BG: Record<Tier, string> = {
+export const TIER_BG: Record<string, string> = {
   LEGENDAIRE: "bg-yellow-400/20 text-yellow-300 border-yellow-400/40",
   OR: "bg-amber-400/20 text-amber-300 border-amber-400/40",
   ARGENT: "bg-green-600/20 text-green-400 border-green-600/40",
