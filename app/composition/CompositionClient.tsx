@@ -7,7 +7,7 @@ import {
 } from "recharts"
 import type { PlayerSummary } from "@/lib/types"
 import { TierBadge } from "@/components/TierBadge"
-import { POSITION_LABELS, TIER_COLORS } from "@/lib/constants"
+import { TIER_COLORS } from "@/lib/constants"
 
 // ── Slot definitions ──────────────────────────────────────────────────────────
 const XV_SLOTS = [

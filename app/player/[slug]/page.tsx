@@ -107,9 +107,9 @@ export default async function PlayerPage({ params }: Props) {
               <span className="bg-slate-800 px-2 py-0.5 rounded text-xs">
                 {player.form_trend} Forme 5M: {player.form_score != null ? Math.round(player.form_score) : "—"}/100
               </span>
-              {(player as any).form_score_10 != null && (
+              {player.form_score_10 != null && (
                 <span className="bg-slate-800 px-2 py-0.5 rounded text-xs text-slate-300">
-                  {(player as any).form_trend_10} 10M: {Math.round((player as any).form_score_10)}/100
+                  {player.form_trend_10} 10M: {Math.round(player.form_score_10)}/100
                 </span>
               )}
               <span className="bg-slate-800 px-2 py-0.5 rounded text-xs">

@@ -30,7 +30,9 @@ export interface PlayerDetail extends PlayerSummary {
   age_factor: number
   intl_bonus: number
   form_score: number | null
+  form_score_10: number | null
   form_trend: string
+  form_trend_10: string | null
   minutes_played: number | null
   axis_att: number | null
   axis_def: number | null
