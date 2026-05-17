@@ -3,49 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --bg: #08111F;
-  --bg-card: #0F1A2E;
-  --bg-card2: #162236;
-  --border: #1E3050;
-  --border-hover: #2A4270;
-  --accent: #F97316;
-  --accent2: #3B82F6;
-  --text: #E2E8F0;
-  --muted: #64748B;
+  --color-paper:    #f3ede0;
+  --color-paper-2:  #ebe3d2;
+  --color-paper-3:  #e0d6c0;
+  --color-ink:      #181b16;
+  --color-ink-2:    #2c2e26;
+  --color-muted:    #5a5a4e;
+  --color-forest:   #1a3a2e;
+  --color-forest-2: #2a5240;
+  --color-terra:    #b94f3a;
+  --color-terra-2:  #d96a4f;
+  --color-ochre:    #c89d4a;
+  --color-line:     rgba(24,27,22,0.12);
+  --color-line-2:   rgba(24,27,22,0.22);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   min-height: 100vh;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-sans, 'Bricolage Grotesque', system-ui, sans-serif);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+.bg-paper-texture {
+  background-color: var(--color-paper);
+  background-image: radial-gradient(circle at 1px 1px, rgba(24,27,22,0.06) 1px, transparent 0);
+  background-size: 8px 8px;
+}
+
+.font-serif { font-family: var(--font-serif, 'Instrument Serif', Georgia, serif); }
+.font-mono  { font-family: var(--font-mono, 'JetBrains Mono', monospace); }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-@layer utilities {
-  .text-gradient {
-    background: linear-gradient(135deg, #F97316 0%, #FB923C 50%, #FCD34D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .text-gradient-blue {
-    background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--color-paper-2); }
+::-webkit-scrollbar-thumb { background: var(--color-line-2); border-radius: 3px; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }

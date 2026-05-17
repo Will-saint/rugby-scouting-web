@@ -15,36 +15,45 @@ const NAV = [
 export function Navbar() {
   const path = usePathname()
   return (
-    <nav
-      className="sticky top-0 z-50 border-b"
-      style={{
-        background: "rgba(8,17,31,0.92)",
-        borderColor: "#1E3050",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center gap-6">
-        <Link href="/" className="flex items-center gap-2 font-bold text-white text-lg shrink-0 group">
-          <span className="text-orange-400 group-hover:scale-125 transition-transform inline-block">▶</span>
-          <span className="hidden sm:inline tracking-tight">Rugby Analytics</span>
+    <nav className="sticky top-0 z-50 border-b" style={{ background: "var(--color-paper)", borderColor: "var(--color-line)" }}>
+      <div className="max-w-7xl mx-auto px-6 h-14 grid items-center" style={{ gridTemplateColumns: "1fr auto 1fr" }}>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+            style={{ background: "var(--color-ink)", color: "var(--color-paper)" }}>
+            <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 20, lineHeight: 1 }}>·</span>
+          </div>
+          <span className="hidden sm:block font-semibold text-[15px]" style={{ color: "var(--color-ink)", letterSpacing: "-0.01em" }}>
+            Rugby Analytics
+          </span>
         </Link>
-        <div className="flex items-center gap-0.5 flex-1 overflow-x-auto no-scrollbar">
+
+        {/* Links */}
+        <div className="flex items-center gap-0 overflow-x-auto no-scrollbar">
           {NAV.map((n) => (
             <Link
               key={n.href}
               href={n.href}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-                path.startsWith(n.href)
-                  ? "bg-orange-500/20 text-orange-400"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
-              }`}
+              className="relative whitespace-nowrap text-sm font-medium transition-colors px-3 py-1.5"
+              style={{
+                color: path.startsWith(n.href) ? "var(--color-ink)" : "var(--color-muted)",
+                ...(path.startsWith(n.href) ? { fontWeight: 600 } : {}),
+              }}
             >
               {n.label}
+              {path.startsWith(n.href) && (
+                <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full" style={{ background: "var(--color-terra)" }} />
+              )}
             </Link>
           ))}
         </div>
-        <span className="text-xs text-slate-600 hidden lg:block shrink-0">Top 14 · 25-26</span>
+
+        {/* Right */}
+        <div className="flex justify-end">
+          <span className="text-xs hidden lg:block" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+            Top 14 · 25-26
+          </span>
+        </div>
       </div>
     </nav>
   )

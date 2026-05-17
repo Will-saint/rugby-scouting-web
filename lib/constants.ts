@@ -1,17 +1,17 @@
 export const TIER_COLORS: Record<string, string> = {
-  LEGENDAIRE: "#FFD700",
-  OR: "#C8A840",
-  ARGENT: "#3A7A28",
-  BRONZE: "#8C4020",
-  STANDARD: "#585858",
+  LEGENDAIRE: "#c89d4a",
+  OR:         "#c89d4a",
+  ARGENT:     "#1a3a2e",
+  BRONZE:     "#b94f3a",
+  STANDARD:   "#5a5a4e",
 }
 
 export const TIER_BG: Record<string, string> = {
-  LEGENDAIRE: "bg-yellow-400/20 text-yellow-300 border-yellow-400/40",
-  OR: "bg-amber-400/20 text-amber-300 border-amber-400/40",
-  ARGENT: "bg-green-600/20 text-green-400 border-green-600/40",
-  BRONZE: "bg-orange-700/20 text-orange-400 border-orange-700/40",
-  STANDARD: "bg-zinc-600/20 text-zinc-400 border-zinc-600/40",
+  LEGENDAIRE: "bg-yellow-900/15 text-yellow-700 border-yellow-700/30",
+  OR:         "bg-amber-800/12 text-amber-700 border-amber-700/30",
+  ARGENT:     "bg-green-900/12 text-green-800 border-green-800/25",
+  BRONZE:     "bg-red-900/10 text-red-700 border-red-700/25",
+  STANDARD:   "bg-stone-200/60 text-stone-600 border-stone-400/30",
 }
 
 export const POSITION_LABELS: Record<string, string> = {
@@ -36,36 +36,15 @@ export const AXIS_LABELS: Record<string, string> = {
 }
 
 export const AXIS_COLORS = {
-  t14: "#F97316",
-  intl: "#3B82F6",
+  t14: "#b94f3a",
+  intl: "#1a3a2e",
 }
 
 export const POSITIONS = [
-  "ALL",
-  "FRONT_ROW",
-  "LOCK",
-  "BACK_ROW",
-  "SCRUM_HALF",
-  "FLY_HALF",
-  "CENTRE",
-  "WINGER",
-  "FULLBACK",
+  "ALL","FRONT_ROW","LOCK","BACK_ROW","SCRUM_HALF","FLY_HALF","CENTRE","WINGER","FULLBACK",
 ]
 
 export const TEAMS = [
-  "ALL",
-  "Bayonne",
-  "Bordeaux-Bègles",
-  "Brive",
-  "Castres",
-  "Clermont",
-  "La Rochelle",
-  "Lyon",
-  "Montpellier",
-  "Pau",
-  "Perpignan",
-  "Racing 92",
-  "Stade Français",
-  "Toulon",
-  "Toulouse",
+  "ALL","Bayonne","Bordeaux-Bègles","Brive","Castres","Clermont","La Rochelle",
+  "Lyon","Montpellier","Pau","Perpignan","Racing 92","Stade Français","Toulon","Toulouse",
 ]
