@@ -1,5 +1,6 @@
 "use client"
 import { useState, useMemo } from "react"
+import type { CSSProperties } from "react"
 import Link from "next/link"
 import type { PlayerRank, TeamSummary } from "@/lib/types"
 import { TierBadge } from "@/components/TierBadge"
@@ -26,7 +27,7 @@ export function LeaderboardClient({ players, teams }: Props) {
 
   const teamNames = ["ALL", ...teams.map((t) => t.team)]
 
-  const selStyle: React.CSSProperties = {
+  const selStyle: CSSProperties = {
     background: "var(--color-paper)",
     borderColor: "var(--color-line-2)",
     color: "var(--color-ink)",

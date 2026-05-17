@@ -37,7 +37,7 @@ export function Navbar() {
               className="relative whitespace-nowrap text-sm font-medium transition-colors px-3 py-1.5"
               style={{
                 color: path.startsWith(n.href) ? "var(--color-ink)" : "var(--color-muted)",
-                ...(path.startsWith(n.href) ? { fontWeight: 600 } : {}),
+                fontWeight: path.startsWith(n.href) ? 600 : 400,
               }}
             >
               {n.label}
