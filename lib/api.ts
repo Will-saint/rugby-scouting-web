@@ -1,6 +1,6 @@
 import type {
   PlayerSummary, PlayerDetail, PlayerRank, PlayersResponse,
-  TeamSummary, TeamDetail, MatchPrediction, Meta, SeasonRating
+  TeamSummary, TeamDetail, MatchPrediction, Meta, SeasonRating, InternationalPlayer
 } from "./types"
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8010/api/v1"
@@ -53,6 +53,9 @@ export const api = {
     if (params.limit != null) qs.set("limit", String(params.limit))
     return fetcher<PlayerRank[]>(`/leaderboard?${qs}`)
   },
+
+  international: (season = "2025-2026") =>
+    fetcher<InternationalPlayer[]>(`/international?season=${season}`),
 
   predict: (home: string, away: string, season = "2025-2026") =>
     fetcher<MatchPrediction>("/predict", {

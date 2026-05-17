@@ -3,16 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0B1220;
-  --bg-card: #111827;
-  --bg-card2: #1a2233;
-  --border: #1e2d42;
+  --bg: #08111F;
+  --bg-card: #0F1A2E;
+  --bg-card2: #162236;
+  --border: #1E3050;
+  --border-hover: #2A4270;
   --accent: #F97316;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
+  --accent2: #3B82F6;
+  --text: #E2E8F0;
+  --muted: #64748B;
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
@@ -21,6 +24,31 @@ body {
   font-family: "Inter", system-ui, sans-serif;
 }
 
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #F97316 0%, #FB923C 50%, #FCD34D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.35s ease-out forwards; }

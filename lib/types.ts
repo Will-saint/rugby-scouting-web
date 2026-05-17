@@ -99,6 +99,20 @@ export interface PlayerRank {
   confidence_badge: string
 }
 
+export interface InternationalPlayer {
+  lnr_slug: string | null
+  name: string | null
+  team: string | null
+  position_group: string | null
+  rating: number
+  tier: string
+  rating_intl: number | null
+  tier_intl: string
+  team_intl: string | null
+  matches_intl: number | null
+  nationality: string | null
+}
+
 export interface MatchPrediction {
   home: string
   away: string
