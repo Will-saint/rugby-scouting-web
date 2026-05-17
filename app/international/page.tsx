@@ -3,11 +3,12 @@ import { TierBadge } from "@/components/TierBadge"
 import { RatingBar } from "@/components/RatingBar"
 import Link from "next/link"
 import { POSITION_LABELS } from "@/lib/constants"
+import type { InternationalPlayer } from "@/lib/types"
 
 export const revalidate = 300
 
 export default async function InternationalPage() {
-  let players = []
+  let players: InternationalPlayer[] = []
   try { players = await api.international() } catch { players = [] }
 
   const countries = Array.from(new Set(players.map((p) => p.team_intl).filter(Boolean))).sort()
