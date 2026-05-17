@@ -34,7 +34,7 @@ export default async function HomePage() {
     <div>
       {/* Date strip */}
       <div className="flex justify-between px-6 sm:px-12 py-3 border-b font-mono text-xs"
-        style={{ borderColor: "var(--color-line)", color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+        style={{ borderColor: "var(--color-line)", color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
         <span>Saison 2025/26 · Données à jour</span>
         <span className="hidden sm:block">544 joueurs · 14 clubs · 6 saisons</span>
       </div>
@@ -43,12 +43,12 @@ export default async function HomePage() {
       <section className="px-6 sm:px-12 pt-16 pb-20 grid gap-16" style={{ gridTemplateColumns: "1.3fr 1fr" }}>
         <div>
           <div className="flex items-center gap-3 mb-7 font-mono text-xs tracking-widest uppercase"
-            style={{ color: "var(--color-terra)", fontFamily: "var(--font-mono)" }}>
+            style={{ color: "var(--color-terra)", fontFamily: "'JetBrains Mono', monospace" }}>
             <span className="w-8 h-px" style={{ background: "var(--color-terra)" }} />
             Édition de la semaine
           </div>
           <h1 className="font-serif mb-0" style={{
-            fontFamily: "var(--font-serif)",
+            fontFamily: "'Instrument Serif', Georgia, serif",
             fontSize: "clamp(72px, 10vw, 140px)",
             lineHeight: 0.92,
             letterSpacing: "-0.03em",
@@ -63,7 +63,7 @@ export default async function HomePage() {
 
         <div className="border-l pl-10 pb-3 flex flex-col justify-end" style={{ borderColor: "var(--color-line)" }}>
           <p className="font-serif italic mb-5" style={{
-            fontFamily: "var(--font-serif)",
+            fontFamily: "'Instrument Serif', Georgia, serif",
             fontStyle: "italic",
             fontSize: 20,
             lineHeight: 1.35,
@@ -71,7 +71,7 @@ export default async function HomePage() {
           }}>
             &ldquo;Un outil qui ne raconte pas le rugby — il le mesure, joueur par joueur, mêlée par mêlée.&rdquo;
           </p>
-          <div className="font-mono text-xs tracking-widest uppercase mb-7" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}>
+          <div className="font-mono text-xs tracking-widest uppercase mb-7" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
             — Une notation FIFA-style pour le Top 14
           </div>
           <div className="flex gap-3">
@@ -97,10 +97,10 @@ export default async function HomePage() {
             { v: 6,              l: "Saisons d'historique" },
           ].map(({ v, l }, i) => (
             <div key={l} className="flex flex-col gap-1 px-8 py-6" style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.12)" : "none" }}>
-              <div className="font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: 64, lineHeight: 0.9, color: "var(--color-paper)" }}>
+              <div className="font-serif" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 64, lineHeight: 0.9, color: "var(--color-paper)" }}>
                 {v}
               </div>
-              <div className="font-mono text-xs tracking-widest uppercase" style={{ fontFamily: "var(--font-mono)", color: "rgba(243,237,224,0.65)", letterSpacing: "0.12em" }}>
+              <div className="font-mono text-xs tracking-widest uppercase" style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(243,237,224,0.65)", letterSpacing: "0.12em" }}>
                 {l}
               </div>
             </div>
@@ -114,41 +114,41 @@ export default async function HomePage() {
           {/* Photo placeholder */}
           <div className="relative rounded-lg overflow-hidden border" style={{ aspectRatio: "4/5", background: "repeating-linear-gradient(45deg, var(--color-paper-2) 0 16px, var(--color-paper-3) 16px 17px)", borderColor: "var(--color-line)" }}>
             <div className="absolute inset-6 border border-dashed" style={{ borderColor: "rgba(24,27,22,0.25)" }} />
-            <div className="absolute inset-0 flex items-center justify-center font-mono text-xs" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.1em" }}>
+            <div className="absolute inset-0 flex items-center justify-center font-mono text-xs" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
               [ photo joueur · 4:5 ]
             </div>
             {/* Rating badge */}
             <div className="absolute top-6 right-6 w-24 h-24 rounded-full flex flex-col items-center justify-center font-serif italic"
-              style={{ background: "var(--color-terra)", color: "var(--color-paper)", fontFamily: "var(--font-serif)", fontSize: 38, lineHeight: 0.9, transform: "rotate(-8deg)" }}>
+              style={{ background: "var(--color-terra)", color: "var(--color-paper)", fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 38, lineHeight: 0.9, transform: "rotate(-8deg)" }}>
               {Math.round(top1.rating)}
-              <small className="font-mono not-italic mt-1" style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.15em" }}>NOTE</small>
+              <small className="font-mono not-italic mt-1" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, letterSpacing: "0.15em" }}>NOTE</small>
             </div>
             {/* Tag */}
             <div className="absolute bottom-6 left-6 px-3 py-1.5 font-mono text-xs tracking-widest"
-              style={{ background: "var(--color-ink)", color: "var(--color-paper)", fontFamily: "var(--font-mono)", letterSpacing: "0.1em" }}>
+              style={{ background: "var(--color-ink)", color: "var(--color-paper)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
               {top1.team} · {top1.position_group}
             </div>
           </div>
 
           {/* Info */}
           <div className="flex flex-col justify-center">
-            <div className="font-mono text-xs tracking-widest uppercase mb-5" style={{ color: "var(--color-terra)", fontFamily: "var(--font-mono)", letterSpacing: "0.15em" }}>
+            <div className="font-mono text-xs tracking-widest uppercase mb-5" style={{ color: "var(--color-terra)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.15em" }}>
               ↑ Joueur N°1 · Top 14 2025-2026
             </div>
-            <h2 className="font-serif mb-1.5" style={{ fontFamily: "var(--font-serif)", fontSize: 72, lineHeight: 0.9, fontWeight: 400 }}>
+            <h2 className="font-serif mb-1.5" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 72, lineHeight: 0.9, fontWeight: 400 }}>
               {top1.name.split(" ")[0]}<br />
               <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>{top1.name.split(" ").slice(1).join(" ")}</em>
             </h2>
-            <div className="font-mono text-xs tracking-wider uppercase mb-7" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+            <div className="font-mono text-xs tracking-wider uppercase mb-7" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
               {top1.team} · {POSITION_LABELS[top1.position_group] || top1.position_group}
               {top1.age ? ` · ${top1.age} ans` : ""}
             </div>
             <div className="flex gap-4 items-center mb-8 pb-8 border-b" style={{ borderColor: "var(--color-line)" }}>
               <div>
-                <div className="font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: 64, lineHeight: 0.85, color: "var(--color-ink)" }}>
+                <div className="font-serif" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 64, lineHeight: 0.85, color: "var(--color-ink)" }}>
                   {top1.rating}
                 </div>
-                <div className="font-mono text-xs tracking-wider uppercase mt-1" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}>Note FIFA</div>
+                <div className="font-mono text-xs tracking-wider uppercase mt-1" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace" }}>Note FIFA</div>
               </div>
               <div className="flex-1">
                 <TierBadge tier={top1.tier} size="lg" />
@@ -157,7 +157,7 @@ export default async function HomePage() {
             </div>
             <Link href={`/player/${top1.lnr_slug}`}
               className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase border-b pb-1 self-start"
-              style={{ color: "var(--color-terra)", fontFamily: "var(--font-mono)", letterSpacing: "0.1em", borderColor: "var(--color-terra)" }}>
+              style={{ color: "var(--color-terra)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em", borderColor: "var(--color-terra)" }}>
               Voir la fiche complète →
             </Link>
           </div>
@@ -166,10 +166,10 @@ export default async function HomePage() {
 
       {/* Top 5 ranking — magazine grid */}
       <div className="px-6 sm:px-12 pt-12 pb-5 flex items-baseline justify-between border-b" style={{ borderColor: "var(--color-line)" }}>
-        <h2 className="font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: 48, fontWeight: 400, lineHeight: 1 }}>
+        <h2 className="font-serif" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 48, fontWeight: 400, lineHeight: 1 }}>
           Le classement, <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>cette semaine</em>
         </h2>
-        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.15em" }}>
+        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.15em" }}>
           N° 01 — TOP 5
         </span>
       </div>
@@ -181,7 +181,7 @@ export default async function HomePage() {
               className="flex flex-col gap-3 p-6 transition-colors group"
               style={{ background: "var(--color-paper)", minHeight: 280 }}>
               <div className="font-serif italic" style={{
-                fontFamily: "var(--font-serif)",
+                fontFamily: "'Instrument Serif', Georgia, serif",
                 fontStyle: "italic",
                 fontSize: i === 0 ? 110 : 80,
                 lineHeight: 0.8,
@@ -191,17 +191,17 @@ export default async function HomePage() {
               </div>
               <div className="mt-auto">
                 <div className="font-serif text-2xl mb-1 group-hover:opacity-70 transition-opacity"
-                  style={{ fontFamily: "var(--font-serif)", fontSize: i === 0 ? 24 : 20, lineHeight: 1.05 }}>
+                  style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: i === 0 ? 24 : 20, lineHeight: 1.05 }}>
                   {p.name}
                 </div>
-                <div className="font-mono text-xs uppercase tracking-wide mb-3" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+                <div className="font-mono text-xs uppercase tracking-wide mb-3" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
                   {p.team}
                 </div>
               </div>
               <div className="flex items-end justify-between pt-3 border-t" style={{ borderColor: "var(--color-line)" }}>
-                <span className="font-serif text-2xl" style={{ fontFamily: "var(--font-serif)", fontSize: 28 }}>{p.rating}</span>
+                <span className="font-serif text-2xl" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 28 }}>{p.rating}</span>
                 <span className="font-mono text-xs px-2 py-1 rounded-full" style={{
-                  fontFamily: "var(--font-mono)",
+                  fontFamily: "'JetBrains Mono', monospace",
                   background: p.form_trend === "↗" ? "var(--color-forest)" : p.form_trend === "↘" ? "var(--color-terra)" : "var(--color-paper-3)",
                   color: p.form_trend !== "→" ? "var(--color-paper)" : "var(--color-ink)"
                 }}>{p.form_trend}</span>
@@ -213,10 +213,10 @@ export default async function HomePage() {
 
       {/* Modules */}
       <div className="px-6 sm:px-12 pt-12 pb-5 flex items-baseline justify-between border-b" style={{ borderColor: "var(--color-line)" }}>
-        <h2 className="font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: 48, fontWeight: 400, lineHeight: 1 }}>
+        <h2 className="font-serif" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 48, fontWeight: 400, lineHeight: 1 }}>
           Explorer <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>les modules</em>
         </h2>
-        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.15em" }}>
+        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.15em" }}>
           N° 02 — Navigation
         </span>
       </div>
@@ -229,15 +229,15 @@ export default async function HomePage() {
               className="flex flex-col justify-between p-7 border-r border-b transition-opacity hover:opacity-80"
               style={{ background: s.bg, color: s.color, borderColor: "var(--color-line)", minHeight: 280 }}>
               <div className="font-serif italic self-end text-right" style={{
-                fontFamily: "var(--font-serif)", fontStyle: "italic",
+                fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic",
                 fontSize: 80, lineHeight: 0.85, color: s.glyphColor
               }}>{glyph}</div>
               <div>
-                <div className="font-serif text-3xl mb-2" style={{ fontFamily: "var(--font-serif)", fontSize: 28, lineHeight: 0.95 }}>
+                <div className="font-serif text-3xl mb-2" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 28, lineHeight: 0.95 }}>
                   {label}
                 </div>
                 <div className="text-sm mb-4" style={{ opacity: 0.7, lineHeight: 1.4 }}>{desc}</div>
-                <div className="font-mono text-xs tracking-widest uppercase" style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.1em" }}>
+                <div className="font-mono text-xs tracking-widest uppercase" style={{ fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
                   VOIR →
                 </div>
               </div>
@@ -248,10 +248,10 @@ export default async function HomePage() {
 
       {/* Footer */}
       <footer className="flex items-end justify-between px-6 sm:px-12 py-12 border-t" style={{ background: "var(--color-paper-2)", borderColor: "var(--color-line)" }}>
-        <div className="font-serif italic" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 72, lineHeight: 0.85, color: "var(--color-ink)" }}>
+        <div className="font-serif italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", fontSize: 72, lineHeight: 0.85, color: "var(--color-ink)" }}>
           Rugby<br /><span style={{ color: "var(--color-terra)" }}>Analytics.</span>
         </div>
-        <div className="font-mono text-xs text-right" style={{ fontFamily: "var(--font-mono)", color: "var(--color-muted)", letterSpacing: "0.1em", lineHeight: 1.7, textTransform: "uppercase" }}>
+        <div className="font-mono text-xs text-right" style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--color-muted)", letterSpacing: "0.1em", lineHeight: 1.7, textTransform: "uppercase" }}>
           Top 14 · Saison 2025/26<br />
           Modèle v4.2 · 6 saisons<br />
           © 2026

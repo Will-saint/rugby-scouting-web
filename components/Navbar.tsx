@@ -21,7 +21,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
             style={{ background: "var(--color-ink)", color: "var(--color-paper)" }}>
-            <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 20, lineHeight: 1 }}>·</span>
+            <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", fontSize: 20, lineHeight: 1 }}>·</span>
           </div>
           <span className="hidden sm:block font-semibold text-[15px]" style={{ color: "var(--color-ink)", letterSpacing: "-0.01em" }}>
             Rugby Analytics
@@ -50,7 +50,7 @@ export function Navbar() {
 
         {/* Right */}
         <div className="flex justify-end">
-          <span className="text-xs hidden lg:block" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+          <span className="text-xs hidden lg:block" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
             Top 14 · 25-26
           </span>
         </div>

@@ -25,7 +25,7 @@ body {
   background-color: var(--color-paper);
   color: var(--color-ink);
   min-height: 100vh;
-  font-family: var(--font-sans, 'Bricolage Grotesque', system-ui, sans-serif);
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -37,8 +37,8 @@ body {
   background-size: 8px 8px;
 }
 
-.font-serif { font-family: var(--font-serif, 'Instrument Serif', Georgia, serif); }
-.font-mono  { font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.font-serif { font-family: 'Instrument Serif', Georgia, serif; }
+.font-mono  { font-family: 'JetBrains Mono', monospace; }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -31,7 +31,7 @@ export function LeaderboardClient({ players, teams }: Props) {
     background: "var(--color-paper)",
     borderColor: "var(--color-line-2)",
     color: "var(--color-ink)",
-    fontFamily: "var(--font-sans)",
+    fontFamily: "'Bricolage Grotesque', system-ui, sans-serif",
   }
 
   return (
@@ -39,10 +39,10 @@ export function LeaderboardClient({ players, teams }: Props) {
       {/* Header */}
       <div className="px-6 sm:px-12 pt-12 pb-5 flex items-baseline justify-between border-b" style={{ borderColor: "var(--color-line)" }}>
         <div>
-          <h1 className="font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: 56, fontWeight: 400, lineHeight: 1 }}>
+          <h1 className="font-serif" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 56, fontWeight: 400, lineHeight: 1 }}>
             Classement <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>général</em>
           </h1>
-          <p className="font-mono text-xs mt-2 tracking-wider" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>
+          <p className="font-mono text-xs mt-2 tracking-wider" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
             {filtered.length} JOUEURS · TOP 14 2025-2026
           </p>
         </div>
@@ -79,7 +79,7 @@ export function LeaderboardClient({ players, teams }: Props) {
         <table className="w-full text-sm">
           <thead style={{ background: "var(--color-paper-2)" }}>
             <tr className="border-b font-mono text-left text-xs tracking-wider uppercase"
-              style={{ borderColor: "var(--color-line)", color: "var(--color-muted)", fontFamily: "var(--font-mono)", letterSpacing: "0.1em" }}>
+              style={{ borderColor: "var(--color-line)", color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
               <th className="px-6 sm:px-12 py-3 w-12">#</th>
               <th className="px-4 py-3">Joueur</th>
               <th className="px-4 py-3 hidden sm:table-cell">Poste</th>
@@ -94,7 +94,7 @@ export function LeaderboardClient({ players, teams }: Props) {
             {filtered.map((p) => (
               <tr key={p.lnr_slug} className="border-b transition-colors hover:bg-stone-100/40 group"
                 style={{ borderColor: "var(--color-line)" }}>
-                <td className="px-6 sm:px-12 py-4 font-serif italic" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--color-muted)", fontSize: p.rank <= 3 ? 24 : 16 }}>
+                <td className="px-6 sm:px-12 py-4 font-serif italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", color: "var(--color-muted)", fontSize: p.rank <= 3 ? 24 : 16 }}>
                   {p.rank <= 3 ? ["1", "2", "3"][p.rank - 1] : p.rank}
                 </td>
                 <td className="px-4 py-4">
@@ -113,7 +113,7 @@ export function LeaderboardClient({ players, teams }: Props) {
                 <td className="px-4 py-4 text-xs hidden lg:table-cell" style={{ color: "var(--color-muted)" }}>{p.nationality ?? "—"}</td>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-2">
-                    <span className="font-serif text-xl tabular-nums" style={{ fontFamily: "var(--font-serif)", color: "var(--color-ink)" }}>
+                    <span className="font-serif text-xl tabular-nums" style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--color-ink)" }}>
                       {p.rating}
                     </span>
                     <div className="flex-1 hidden sm:block">
@@ -127,7 +127,7 @@ export function LeaderboardClient({ players, teams }: Props) {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="py-16 text-center font-mono text-sm" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}>
+          <div className="py-16 text-center font-mono text-sm" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
             Aucun joueur trouvé
           </div>
         )}
