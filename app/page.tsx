@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { api } from "@/lib/api"
 import { TierBadge } from "@/components/TierBadge"
-import { RatingBar } from "@/components/RatingBar"
 import { POSITION_LABELS } from "@/lib/constants"
 
 export const revalidate = 300
