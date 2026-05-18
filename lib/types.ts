@@ -2,6 +2,15 @@ export type Tier = "LEGENDAIRE" | "OR" | "ARGENT" | "BRONZE" | "STANDARD"
 export type FormTrend = "↗" | "→" | "↘"
 export type ConfidenceBadge = "Haute" | "Moyenne" | "Basse"
 
+export interface AwardBadge {
+  id: string
+  label: string
+  short: string
+  year: number | null
+  icon: string
+  color: string
+}
+
 export interface PlayerSummary {
   lnr_slug: string
   name: string
@@ -16,6 +25,8 @@ export interface PlayerSummary {
   nationality: string | null
   photo_url: string | null
   confidence_badge: ConfidenceBadge
+  rating_intl: number | null
+  badges: AwardBadge[]
 }
 
 export interface SeasonRating {
@@ -60,6 +71,18 @@ export interface PlayerDetail extends PlayerSummary {
   axis_rigueur_intl: number | null
   axis_danger_intl: number | null
   axis_melee_intl: number | null
+  // Raw Naim intl stats (per-game averages from ESPN)
+  meters_run_intl: number | null
+  clean_breaks_intl: number | null
+  defenders_beaten_intl: number | null
+  passes_intl: number | null
+  runs_intl: number | null
+  lineouts_won_intl: number | null
+  missed_tackles_intl: number | null
+  tackles_intl: number | null
+  turnovers_conceded_intl: number | null
+  penalties_conceded_intl: number | null
+  offloads_intl: number | null
   history: SeasonRating[]
 }
 
@@ -97,6 +120,7 @@ export interface PlayerRank {
   nationality: string | null
   form_trend: string
   confidence_badge: string
+  badges: AwardBadge[]
 }
 
 export interface InternationalPlayer {

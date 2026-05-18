@@ -123,6 +123,26 @@ export default async function PlayerPage({ params, searchParams }: Props) {
               </span>
             </div>
           </div>
+
+          {/* Award badges */}
+          {player.badges && player.badges.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {player.badges.map((badge, i) => (
+                <span
+                  key={`${badge.id}-${badge.year}-${i}`}
+                  className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full border"
+                  style={{
+                    borderColor: badge.color,
+                    color: badge.color,
+                    background: `${badge.color}18`,
+                  }}
+                  title={badge.label}
+                >
+                  {badge.short}{badge.year ? ` ${badge.year}` : ""}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* CTA */}
@@ -206,6 +226,45 @@ export default async function PlayerPage({ params, searchParams }: Props) {
             Évolution de la note — {player.history.length} saisons
           </h2>
           <RatingHistoryChart history={player.history} />
+        </div>
+      )}
+
+      {/* International stats (raw per-game averages from ESPN via Naim) */}
+      {player.rating_intl && player.meters_run_intl != null && (
+        <div className="rounded-xl border p-6" style={{ background: "#111827", borderColor: "#1e2d42" }}>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
+              Stats internationales · {player.team_intl}
+            </h2>
+            <span className="text-xs text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded">
+              {player.matches_intl} sélections · Moy./match
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {[
+              { label: "Mètres courus", value: player.meters_run_intl },
+              { label: "Franchissements", value: player.clean_breaks_intl },
+              { label: "Défenseurs battus", value: player.defenders_beaten_intl },
+              { label: "Passes", value: player.passes_intl },
+              { label: "Courses", value: player.runs_intl },
+              { label: "Plaquages", value: player.tackles_intl },
+              { label: "Plaq. ratés", value: player.missed_tackles_intl },
+              { label: "Offloads", value: player.offloads_intl },
+              { label: "Turn. concédés", value: player.turnovers_conceded_intl },
+              { label: "Pénalités conc.", value: player.penalties_conceded_intl },
+              { label: "Touches gagnées", value: player.lineouts_won_intl },
+            ].filter(s => s.value != null && s.value !== 0).map(({ label, value }) => (
+              <div key={label} className="bg-slate-800/50 rounded-lg p-3">
+                <div className="text-xs text-slate-500 mb-1">{label}</div>
+                <div className="text-lg font-bold text-white">
+                  {value != null ? value.toFixed(1) : "—"}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-slate-600 mt-3">
+            Données ESPN (2016–2023) · {player.matches_intl} matchs internationaux analysés
+          </p>
         </div>
       )}
     </div>

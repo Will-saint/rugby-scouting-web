@@ -100,11 +100,19 @@ export function LeaderboardClient({ players, teams, seasons, currentSeason }: Pr
                   {p.rank <= 3 ? ["1", "2", "3"][p.rank - 1] : p.rank}
                 </td>
                 <td className="px-4 py-4">
-                  <Link href={`/player/${p.lnr_slug}`}
-                    className="font-semibold transition-colors group-hover:underline"
-                    style={{ color: "var(--color-ink)", textDecorationColor: "var(--color-terra)" }}>
-                    {p.name}
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Link href={`/player/${p.lnr_slug}`}
+                      className="font-semibold transition-colors group-hover:underline"
+                      style={{ color: "var(--color-ink)", textDecorationColor: "var(--color-terra)" }}>
+                      {p.name}
+                    </Link>
+                    {p.badges && p.badges.length > 0 && (
+                      <span title={p.badges.map(b => `${b.short}${b.year ? ` ${b.year}` : ""}`).join(" · ")}
+                        className="text-xs leading-none" style={{ color: "#d4af37" }}>
+                        ★
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-1"><TierBadge tier={p.tier} size="xs" /></div>
                 </td>
                 <td className="px-4 py-4 text-xs hidden sm:table-cell" style={{ color: "var(--color-muted)" }}>
