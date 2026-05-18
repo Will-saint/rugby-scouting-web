@@ -6,14 +6,17 @@ import { TierBadge } from "@/components/TierBadge"
 import { PlayerRadar } from "@/components/PlayerRadar"
 import { RatingHistoryChart } from "@/components/RatingHistoryChart"
 import { POSITION_LABELS, TIER_COLORS } from "@/lib/constants"
+import { SeasonSelector } from "@/components/SeasonSelector"
 
 export const revalidate = 300
 
-interface Props { params: { slug: string } }
+interface Props { params: { slug: string }; searchParams: { season?: string } }
 
-export default async function PlayerPage({ params }: Props) {
+export default async function PlayerPage({ params, searchParams }: Props) {
+  const seasons = await api.seasons().catch(() => ["2025-2026"])
+  const season = seasons.includes(searchParams.season ?? "") ? searchParams.season! : seasons[seasons.length - 1] ?? "2025-2026"
   let player
-  try { player = await api.player(params.slug) } catch { notFound() }
+  try { player = await api.player(params.slug, season) } catch { notFound() }
 
   const tier = player.tier
   const accentColor = TIER_COLORS[tier]
@@ -50,10 +53,13 @@ export default async function PlayerPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
       {/* Breadcrumb */}
-      <div className="text-sm text-slate-500 flex items-center gap-2">
-        <Link href="/leaderboard" className="hover:text-orange-400 transition-colors">Classement</Link>
-        <span>/</span>
-        <span className="text-slate-300">{player.name}</span>
+      <div className="flex items-center justify-between">
+        <div className="text-sm flex items-center gap-2" style={{ color: "var(--color-muted)" }}>
+          <Link href="/leaderboard" style={{ color: "var(--color-terra)" }}>Classement</Link>
+          <span>/</span>
+          <span style={{ color: "var(--color-ink)" }}>{player.name}</span>
+        </div>
+        <SeasonSelector seasons={seasons} current={season} />
       </div>
 
       {/* Banner */}

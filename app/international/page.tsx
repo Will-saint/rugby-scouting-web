@@ -4,12 +4,17 @@ import { RatingBar } from "@/components/RatingBar"
 import Link from "next/link"
 import { POSITION_LABELS } from "@/lib/constants"
 import type { InternationalPlayer } from "@/lib/types"
+import { SeasonSelector } from "@/components/SeasonSelector"
 
 export const revalidate = 300
 
-export default async function InternationalPage() {
+interface Props { searchParams: { season?: string } }
+
+export default async function InternationalPage({ searchParams }: Props) {
+  const seasons = await api.seasons().catch(() => ["2025-2026"])
+  const season = seasons.includes(searchParams.season ?? "") ? searchParams.season! : seasons[seasons.length - 1] ?? "2025-2026"
   let players: InternationalPlayer[] = []
-  try { players = await api.international() } catch { players = [] }
+  try { players = await api.international(season) } catch { players = [] }
 
   const countries = Array.from(new Set(players.map((p) => p.team_intl).filter(Boolean))).sort()
 
@@ -17,13 +22,17 @@ export default async function InternationalPage() {
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-3 mb-1">
-          <span className="text-2xl">🌍</span>
-          <h1 className="text-2xl font-bold text-white">Joueurs Internationaux</h1>
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 className="font-serif text-3xl" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400 }}>
+              Joueurs <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>internationaux</em>
+            </h1>
+            <p className="text-sm mt-1" style={{ color: "var(--color-muted)" }}>
+              {players.length} joueurs capped · double notation T14 + sélection · {season}
+            </p>
+          </div>
+          <SeasonSelector seasons={seasons} current={season} />
         </div>
-        <p className="text-slate-500 text-sm">
-          {players.length} joueurs capped · double notation T14 + sélection nationale
-        </p>
       </div>
 
       {/* Stats summary */}

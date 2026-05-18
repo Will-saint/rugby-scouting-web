@@ -5,25 +5,31 @@ import { TierBadge } from "@/components/TierBadge"
 import { PlayerRadar } from "@/components/PlayerRadar"
 import { RatingHistoryChart } from "@/components/RatingHistoryChart"
 import { POSITION_LABELS, TIER_COLORS } from "@/lib/constants"
+import { SeasonSelector } from "@/components/SeasonSelector"
 
 export const revalidate = 300
 
-interface Props { params: { name: string } }
+interface Props { params: { name: string }; searchParams: { season?: string } }
 
-export default async function TeamPage({ params }: Props) {
+export default async function TeamPage({ params, searchParams }: Props) {
   const teamName = decodeURIComponent(params.name)
+  const seasons = await api.seasons().catch(() => ["2025-2026"])
+  const season = seasons.includes(searchParams.season ?? "") ? searchParams.season! : seasons[seasons.length - 1] ?? "2025-2026"
   let team
-  try { team = await api.team(teamName) } catch { notFound() }
+  try { team = await api.team(teamName, season) } catch { notFound() }
 
   const TIER_ORDER = ["LEGENDAIRE", "OR", "ARGENT", "BRONZE", "STANDARD"]
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
       {/* Breadcrumb */}
-      <div className="text-sm text-slate-500 flex items-center gap-2">
-        <Link href="/team" className="hover:text-orange-400 transition-colors">Équipes</Link>
-        <span>/</span>
-        <span className="text-slate-300">{team.team}</span>
+      <div className="flex items-center justify-between">
+        <div className="text-sm flex items-center gap-2" style={{ color: "var(--color-muted)" }}>
+          <Link href="/team" style={{ color: "var(--color-terra)" }}>Équipes</Link>
+          <span>/</span>
+          <span style={{ color: "var(--color-ink)" }}>{team.team}</span>
+        </div>
+        <SeasonSelector seasons={seasons} current={season} />
       </div>
 
       {/* Header */}
@@ -36,7 +42,7 @@ export default async function TeamPage({ params }: Props) {
           <div className="text-slate-400 mt-2 flex gap-4 text-sm flex-wrap">
             <span>Force moyenne : <span className="text-orange-400 font-bold text-lg">{team.avg_rating}</span></span>
             <span>{team.n_players} joueurs</span>
-            <span>Saison 2025-2026</span>
+            <span>Saison {season}</span>
           </div>
         </div>
       </div>

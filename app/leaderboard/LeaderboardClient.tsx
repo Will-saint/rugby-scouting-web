@@ -6,12 +6,13 @@ import type { PlayerRank, TeamSummary } from "@/lib/types"
 import { TierBadge } from "@/components/TierBadge"
 import { RatingBar } from "@/components/RatingBar"
 import { POSITIONS, POSITION_LABELS } from "@/lib/constants"
+import { SeasonSelector } from "@/components/SeasonSelector"
 
-interface Props { players: PlayerRank[]; teams: TeamSummary[] }
+interface Props { players: PlayerRank[]; teams: TeamSummary[]; seasons: string[]; currentSeason: string }
 
 const TIERS = ["ALL", "LEGENDAIRE", "OR", "ARGENT", "BRONZE", "STANDARD"]
 
-export function LeaderboardClient({ players, teams }: Props) {
+export function LeaderboardClient({ players, teams, seasons, currentSeason }: Props) {
   const [position, setPosition] = useState("ALL")
   const [team, setTeam]         = useState("ALL")
   const [tier, setTier]         = useState("ALL")
@@ -43,9 +44,10 @@ export function LeaderboardClient({ players, teams }: Props) {
             Classement <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>général</em>
           </h1>
           <p className="font-mono text-xs mt-2 tracking-wider" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em" }}>
-            {filtered.length} JOUEURS · TOP 14 2025-2026
+            {filtered.length} JOUEURS · TOP 14 · {currentSeason}
           </p>
         </div>
+        <SeasonSelector seasons={seasons} current={currentSeason} />
       </div>
 
       {/* Filters */}
