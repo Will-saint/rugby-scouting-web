@@ -8,6 +8,7 @@ import { RatingHistoryChart } from "@/components/RatingHistoryChart"
 import { POSITION_LABELS, TIER_COLORS } from "@/lib/constants"
 import { SeasonSelector } from "@/components/SeasonSelector"
 import { CommentaireIA } from "@/components/CommentaireIA"
+import { ComparaisonHistorique } from "@/components/ComparaisonHistorique"
 
 export const revalidate = 300
 
@@ -30,6 +31,14 @@ export default async function PlayerPage({ params, searchParams }: Props) {
     axis_pow: player.axis_pow,
     axis_gabarit: player.axis_gabarit,
     axis_disc: player.axis_disc,
+    // stats for comparison table
+    rating: player.rating,
+    tackles_per80: player.tackles_per80,
+    offloads_per80: player.offloads_per80,
+    line_breaks_per80: player.line_breaks_per80,
+    turnovers_won_per80: player.turnovers_won_per80,
+    tries_per80: player.tries_per80,
+    minutes_played: player.minutes_played,
   }
 
   const intlAxes = player.rating_intl ? {
@@ -231,6 +240,17 @@ export default async function PlayerPage({ params, searchParams }: Props) {
           </h2>
           <RatingHistoryChart history={player.history} />
         </div>
+      )}
+
+      {/* Comparaison historique */}
+      {player.history.length > 1 && (
+        <ComparaisonHistorique
+          slug={params.slug}
+          currentSeason={season}
+          currentAxes={axes}
+          playerName={player.name}
+          history={player.history}
+        />
       )}
 
       {/* International stats (raw per-game averages from ESPN via Naim) */}

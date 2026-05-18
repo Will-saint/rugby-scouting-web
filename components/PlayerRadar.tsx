@@ -13,15 +13,11 @@ const AXES = [
   { key: "axis_disc", label: "Discipline" },
 ]
 
-interface RadarData {
-  axis: string
-  t14: number
-  intl?: number
-}
-
 interface Props {
   data: Record<string, number | null>
   intlData?: Record<string, number | null>
+  compareData?: Record<string, number | null>
+  compareLabel?: string
   playerName?: string
   height?: number
 }
@@ -36,26 +32,27 @@ const INTL_AXIS_MAP: Record<string, string> = {
   axis_disc: "axis_rigueur_intl",
 }
 
-export function PlayerRadar({ data, intlData, playerName, height = 300 }: Props) {
+export function PlayerRadar({ data, intlData, compareData, compareLabel, playerName, height = 300 }: Props) {
   const hasIntl = intlData && Object.values(intlData).some((v) => v != null)
+  const hasCompare = compareData && Object.values(compareData).some((v) => v != null)
 
-  const chartData: RadarData[] = AXES.map(({ key, label }) => {
+  const chartData = AXES.map(({ key, label }) => {
     const t14 = data[key] ?? 0
     const intlKey = INTL_AXIS_MAP[key]
     const intl = hasIntl ? (intlData![intlKey] ?? intlData![key] ?? 0) : undefined
-    return { axis: label, t14, ...(intl !== undefined ? { intl } : {}) }
+    const compare = hasCompare ? (compareData![key] ?? 0) : undefined
+    return { axis: label, t14, ...(intl !== undefined ? { intl } : {}), ...(compare !== undefined ? { compare } : {}) }
   })
+
+  const showLegend = hasIntl || hasCompare
 
   return (
     <ResponsiveContainer width="100%" height={height}>
       <RadarChart data={chartData} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
         <PolarGrid stroke="#1e2d42" />
-        <PolarAngleAxis
-          dataKey="axis"
-          tick={{ fill: "#94a3b8", fontSize: 11 }}
-        />
+        <PolarAngleAxis dataKey="axis" tick={{ fill: "#94a3b8", fontSize: 11 }} />
         <Radar
-          name={playerName || "T14"}
+          name={playerName || "Saison actuelle"}
           dataKey="t14"
           stroke="#F97316"
           fill="#F97316"
@@ -72,7 +69,18 @@ export function PlayerRadar({ data, intlData, playerName, height = 300 }: Props)
             strokeWidth={2}
           />
         )}
-        {hasIntl && <Legend wrapperStyle={{ fontSize: 12, color: "#94a3b8" }} />}
+        {hasCompare && (
+          <Radar
+            name={compareLabel || "Saison comparée"}
+            dataKey="compare"
+            stroke="#94a3b8"
+            fill="#94a3b8"
+            fillOpacity={0.15}
+            strokeWidth={2}
+            strokeDasharray="4 2"
+          />
+        )}
+        {showLegend && <Legend wrapperStyle={{ fontSize: 12, color: "#94a3b8" }} />}
       </RadarChart>
     </ResponsiveContainer>
   )

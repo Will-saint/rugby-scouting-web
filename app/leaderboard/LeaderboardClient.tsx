@@ -8,6 +8,8 @@ import { RatingBar } from "@/components/RatingBar"
 import { POSITIONS, POSITION_LABELS } from "@/lib/constants"
 import { SeasonSelector } from "@/components/SeasonSelector"
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8010/api/v1"
+
 interface Props { players: PlayerRank[]; teams: TeamSummary[]; seasons: string[]; currentSeason: string }
 
 const TIERS = ["ALL", "LEGENDAIRE", "OR", "ARGENT", "BRONZE", "STANDARD"]
@@ -47,7 +49,17 @@ export function LeaderboardClient({ players, teams, seasons, currentSeason }: Pr
             {filtered.length} JOUEURS · TOP 14 · {currentSeason}
           </p>
         </div>
-        <SeasonSelector seasons={seasons} current={currentSeason} />
+        <div className="flex items-center gap-4">
+          <a
+            href={`${API_BASE}/leaderboard/export?season=${currentSeason}${position !== "ALL" ? `&position=${position}` : ""}${team !== "ALL" ? `&team=${encodeURIComponent(team)}` : ""}`}
+            download
+            className="hidden sm:flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-colors hover:bg-stone-100"
+            style={{ color: "var(--color-muted)", borderColor: "var(--color-line-2)", fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            ↓ CSV
+          </a>
+          <SeasonSelector seasons={seasons} current={currentSeason} />
+        </div>
       </div>
 
       {/* Filters */}
