@@ -1,7 +1,10 @@
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { api } from "@/lib/api"
 import { TierBadge } from "@/components/TierBadge"
 import { POSITION_LABELS } from "@/lib/constants"
+
+const RugbyBall = dynamic(() => import("@/components/RugbyBall").then(m => m.RugbyBall), { ssr: false })
 
 export const revalidate = 300
 
@@ -39,49 +42,56 @@ export default async function HomePage() {
       </div>
 
       {/* Hero */}
-      <section className="px-6 sm:px-12 pt-16 pb-20 grid gap-16" style={{ gridTemplateColumns: "1.3fr 1fr" }}>
-        <div>
-          <div className="flex items-center gap-3 mb-7 font-mono text-xs tracking-widest uppercase"
+      <section className="relative overflow-hidden" style={{ minHeight: "calc(100vh - 56px)", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        {/* Left — text */}
+        <div className="px-6 sm:px-12 pt-20 pb-16 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-8 font-mono text-xs tracking-widest uppercase"
             style={{ color: "var(--color-terra)", fontFamily: "'JetBrains Mono', monospace" }}>
             <span className="w-8 h-px" style={{ background: "var(--color-terra)" }} />
-            Édition de la semaine
+            Top 14 · Saison 2025/26
           </div>
-          <h1 className="font-serif mb-0" style={{
+          <h1 style={{
             fontFamily: "'Instrument Serif', Georgia, serif",
-            fontSize: "clamp(72px, 10vw, 140px)",
+            fontSize: "clamp(64px, 7vw, 128px)",
             lineHeight: 0.92,
             letterSpacing: "-0.03em",
             fontWeight: 400,
-            color: "var(--color-ink)"
+            color: "var(--color-ink)",
+            marginBottom: 40,
           }}>
             Le rugby,<br />
             <em style={{ fontStyle: "italic", color: "var(--color-forest)" }}>décodé</em> en<br />
             <span style={{ textDecoration: "underline", textDecorationColor: "var(--color-terra)", textDecorationThickness: 4, textUnderlineOffset: 4 }}>données</span>.
           </h1>
-        </div>
-
-        <div className="border-l pl-10 pb-3 flex flex-col justify-end" style={{ borderColor: "var(--color-line)" }}>
-          <p className="font-serif italic mb-5" style={{
+          <p style={{
             fontFamily: "'Instrument Serif', Georgia, serif",
             fontStyle: "italic",
-            fontSize: 20,
-            lineHeight: 1.35,
-            color: "var(--color-ink-2)"
+            fontSize: 19,
+            lineHeight: 1.45,
+            color: "var(--color-muted)",
+            maxWidth: 460,
+            marginBottom: 36,
           }}>
             &ldquo;Un outil qui ne raconte pas le rugby — il le mesure, joueur par joueur, mêlée par mêlée.&rdquo;
           </p>
-          <div className="font-mono text-xs tracking-widest uppercase mb-7" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
-            — Une notation FIFA-style pour le Top 14
-          </div>
-          <div className="flex gap-3">
-            <Link href="/leaderboard" className="px-5 py-3 rounded-full text-sm font-semibold transition-colors"
+          <div className="flex gap-3 flex-wrap">
+            <Link href="/leaderboard" className="px-6 py-3 rounded-full text-sm font-semibold"
               style={{ background: "var(--color-terra)", color: "var(--color-paper)" }}>
               Explorer le classement →
             </Link>
-            <Link href="/methodologie" className="px-5 py-3 rounded-full text-sm font-medium border transition-colors"
+            <Link href="/methodologie" className="px-6 py-3 rounded-full text-sm font-medium border"
               style={{ border: "1px solid var(--color-ink)", color: "var(--color-ink)" }}>
               Méthodologie
             </Link>
+          </div>
+        </div>
+
+        {/* Right — 3D ball */}
+        <div className="relative" style={{ background: "var(--color-paper)" }}>
+          <RugbyBall />
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs tracking-widest uppercase whitespace-nowrap"
+            style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}>
+            Ballon en rotation · FFR
           </div>
         </div>
       </section>
