@@ -68,13 +68,13 @@ export default async function PlayerPage({ params, searchParams }: Props) {
         style={{ background: "#111827", borderColor: "#1e2d42" }}
       >
         {/* Photo */}
-        <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-slate-800 border" style={{ borderColor: "#1e2d42" }}>
+        <div className="relative w-28 h-32 rounded-xl overflow-hidden shrink-0 bg-slate-800 border" style={{ borderColor: "#1e2d42" }}>
           {player.photo_url ? (
             <Image
               src={player.photo_url}
               alt={player.name}
               fill
-              className="object-cover"
+              className="object-cover object-top"
               unoptimized
             />
           ) : (
