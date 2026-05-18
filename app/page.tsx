@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import dynamic from "next/dynamic"
 import { api } from "@/lib/api"
 import { TierBadge } from "@/components/TierBadge"
@@ -28,9 +29,14 @@ const MOD_STYLE: Record<string, { bg: string; color: string; glyphColor: string 
   ink:    { bg: "var(--color-ink)",      color: "var(--color-paper)",  glyphColor: "var(--color-ochre)" },
 }
 
+async function getTop1Detail(slug: string) {
+  try { return await api.player(slug) } catch { return null }
+}
+
 export default async function HomePage() {
   const [meta, top5] = await Promise.all([getMeta(), getTop5()])
   const top1 = top5[0]
+  const top1Detail = top1?.lnr_slug ? await getTop1Detail(top1.lnr_slug) : null
 
   return (
     <div>
@@ -87,9 +93,9 @@ export default async function HomePage() {
         </div>
 
         {/* Right — 3D ball */}
-        <div className="relative" style={{ background: "var(--color-paper)" }}>
+        <div className="relative" style={{ background: "var(--color-paper)", height: "calc(100vh - 56px)" }}>
           <RugbyBall />
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs tracking-widest uppercase whitespace-nowrap"
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs tracking-widest uppercase whitespace-nowrap pointer-events-none"
             style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}>
             Ballon en rotation · FFR
           </div>
@@ -120,19 +126,23 @@ export default async function HomePage() {
       {/* Featured player */}
       {top1 && (
         <section className="px-6 sm:px-12 py-20 grid gap-14" style={{ gridTemplateColumns: "1fr 1fr", borderBottom: "1px solid var(--color-line)" }}>
-          {/* Photo placeholder */}
+          {/* Photo */}
           <div className="relative rounded-lg overflow-hidden border" style={{ aspectRatio: "4/5", background: "repeating-linear-gradient(45deg, var(--color-paper-2) 0 16px, var(--color-paper-3) 16px 17px)", borderColor: "var(--color-line)" }}>
-            <div className="absolute inset-6 border border-dashed" style={{ borderColor: "rgba(24,27,22,0.25)" }} />
-            <div className="absolute inset-0 flex items-center justify-center font-mono text-xs" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
-              [ photo joueur · 4:5 ]
-            </div>
-            {/* Rating badge */}
+            {top1Detail?.photo_url ? (
+              <Image src={top1Detail.photo_url} alt={top1.name} fill className="object-cover" unoptimized />
+            ) : (
+              <>
+                <div className="absolute inset-6 border border-dashed" style={{ borderColor: "rgba(24,27,22,0.25)" }} />
+                <div className="absolute inset-0 flex items-center justify-center font-mono text-xs" style={{ color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
+                  🏉
+                </div>
+              </>
+            )}
             <div className="absolute top-6 right-6 w-24 h-24 rounded-full flex flex-col items-center justify-center font-serif italic"
               style={{ background: "var(--color-terra)", color: "var(--color-paper)", fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 38, lineHeight: 0.9, transform: "rotate(-8deg)" }}>
               {Math.round(top1.rating)}
               <small className="font-mono not-italic mt-1" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, letterSpacing: "0.15em" }}>NOTE</small>
             </div>
-            {/* Tag */}
             <div className="absolute bottom-6 left-6 px-3 py-1.5 font-mono text-xs tracking-widest"
               style={{ background: "var(--color-ink)", color: "var(--color-paper)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
               {top1.team} · {top1.position_group}
