@@ -137,6 +137,25 @@ export interface InternationalPlayer {
   nationality: string | null
 }
 
+export interface CommentaryResponse {
+  commentary: string | null
+  available: boolean
+}
+
+export interface ScoutResult {
+  players: PlayerSummary[]
+  total: number
+  criteria: {
+    position: string | null
+    min_rating: number
+    max_rating: number
+    exclude_team: string | null
+    season: string
+  }
+  ai_summary: string | null
+  ai_available: boolean
+}
+
 export interface MatchPrediction {
   home: string
   away: string

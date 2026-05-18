@@ -1,6 +1,7 @@
 import type {
   PlayerSummary, PlayerDetail, PlayerRank, PlayersResponse,
-  TeamSummary, TeamDetail, MatchPrediction, Meta, SeasonRating, InternationalPlayer
+  TeamSummary, TeamDetail, MatchPrediction, Meta, SeasonRating, InternationalPlayer,
+  CommentaryResponse, ScoutResult,
 } from "./types"
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8010/api/v1"
@@ -63,4 +64,22 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ home, away, season }),
     }),
+
+  commentary: (slug: string, season = "2025-2026") =>
+    fetcher<CommentaryResponse>(`/players/${slug}/commentary?season=${season}`),
+
+  scout: (params: {
+    season?: string; position?: string; min_rating?: number
+    max_rating?: number; exclude_team?: string; limit?: number; with_ai?: boolean
+  } = {}) => {
+    const qs = new URLSearchParams()
+    if (params.season) qs.set("season", params.season)
+    if (params.position && params.position !== "ALL") qs.set("position", params.position)
+    if (params.min_rating != null) qs.set("min_rating", String(params.min_rating))
+    if (params.max_rating != null) qs.set("max_rating", String(params.max_rating))
+    if (params.exclude_team) qs.set("exclude_team", params.exclude_team)
+    if (params.limit != null) qs.set("limit", String(params.limit))
+    if (params.with_ai != null) qs.set("with_ai", String(params.with_ai))
+    return fetcher<ScoutResult>(`/scout?${qs}`)
+  },
 }

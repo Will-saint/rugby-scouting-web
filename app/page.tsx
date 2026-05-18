@@ -18,8 +18,9 @@ const MODULES = [
   { href: "/composition",   glyph: "iii.", label: "Compo XV",      desc: "Construis ton XV idéal, score collectif en temps réel.", variant: "terra" },
   { href: "/international", glyph: "iv.",  label: "International", desc: "Joueurs capped, dual ranking T14 vs sélection nationale.", variant: "ink" },
   { href: "/team",          glyph: "v.",   label: "Équipes",       desc: "Force par club, distribution des tiers, historique saisons.", variant: "paper" },
-  { href: "/predict",       glyph: "vi.",  label: "Prédicteur",    desc: "Probabilité de victoire basée sur la force des effectifs.", variant: "forest" },
-  { href: "/methodologie",  glyph: "vii.", label: "Méthodologie",  desc: "Comprendre le système de notation FIFA-style Rugby.", variant: "paper" },
+  { href: "/scout",         glyph: "vi.",  label: "Scout IA",      desc: "Recrutement assisté — profil, budget, top matchs + analyse Claude.", variant: "terra" },
+  { href: "/predict",       glyph: "vii.", label: "Prédicteur",    desc: "Probabilité de victoire basée sur la force des effectifs.", variant: "forest" },
+  { href: "/methodologie",  glyph: "viii.", label: "Méthodologie", desc: "Comprendre le système de notation FIFA-style Rugby.", variant: "paper" },
 ]
 
 const MOD_STYLE: Record<string, { bg: string; color: string; glyphColor: string }> = {

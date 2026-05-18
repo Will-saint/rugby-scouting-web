@@ -8,6 +8,7 @@ const NAV = [
   { href: "/composition",   label: "Compo XV" },
   { href: "/team",          label: "Équipes" },
   { href: "/international", label: "International" },
+  { href: "/scout",         label: "Scout IA" },
   { href: "/predict",       label: "Prédicteur" },
   { href: "/methodologie",  label: "Méthodo" },
 ]

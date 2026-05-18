@@ -7,6 +7,7 @@ import { PlayerRadar } from "@/components/PlayerRadar"
 import { RatingHistoryChart } from "@/components/RatingHistoryChart"
 import { POSITION_LABELS, TIER_COLORS } from "@/lib/constants"
 import { SeasonSelector } from "@/components/SeasonSelector"
+import { CommentaireIA } from "@/components/CommentaireIA"
 
 export const revalidate = 300
 
@@ -155,6 +156,9 @@ export default async function PlayerPage({ params, searchParams }: Props) {
           </Link>
         </div>
       </div>
+
+      {/* Commentaire IA */}
+      <CommentaireIA slug={params.slug} season={season} />
 
       {/* Radar + Stats */}
       <div className="grid lg:grid-cols-2 gap-6">
