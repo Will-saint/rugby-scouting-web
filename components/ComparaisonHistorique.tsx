@@ -22,7 +22,7 @@ const STAT_ROWS = [
   { key: "minutes_played",      label: "Minutes jouées",      fmt: (v: number) => `${Math.round(v)} min` },
 ]
 
-export function ComparaisonHistorique({ slug, currentSeason, currentAxes, playerName, history }: Props) {
+export function ComparaisonHistorique({ slug, currentSeason, currentAxes, history }: Props) {
   const pastSeasons = history.filter(h => h.season !== currentSeason && h.rating != null)
   const [selected, setSelected] = useState(pastSeasons[0]?.season ?? "")
   const [pastDetail, setPastDetail] = useState<PlayerDetail | null>(null)

@@ -8,7 +8,7 @@ export function Footer() {
             Rugby Analytics
           </p>
           <p className="text-xs leading-relaxed" style={{ color: "var(--color-muted)" }}>
-            Dashboard indépendant d'analyse des joueurs du Top 14. Non affilié à la LNR.
+            Dashboard indépendant d&apos;analyse des joueurs du Top 14. Non affilié à la LNR.
           </p>
         </div>
 
@@ -30,7 +30,7 @@ export function Footer() {
             Mentions légales
           </p>
           <p className="text-xs leading-relaxed" style={{ color: "var(--color-muted)" }}>
-            Les données affichées (noms, photos, statistiques) sont des données publiques issues de sources officielles, utilisées à des fins d'analyse sportive non commerciale. Aucune donnée utilisateur n'est collectée. Conformément au RGPD, base légale : intérêt légitime (art. 6.1.f).
+            Les données affichées (noms, photos, statistiques) sont des données publiques issues de sources officielles, utilisées à des fins d&apos;analyse sportive non commerciale. Aucune donnée utilisateur n&apos;est collectée. Conformément au RGPD, base légale : intérêt légitime (art. 6.1.f).
           </p>
         </div>
       </div>
