@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { api } from "@/lib/api"
 import { PresentationView } from "./PresentationView"
 
-export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 interface Props { params: { slug: string }; searchParams: { season?: string } }
 
