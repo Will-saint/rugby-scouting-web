@@ -155,11 +155,18 @@ export default async function PlayerPage({ params, searchParams }: Props) {
           )}
         </div>
 
-        {/* CTA */}
-        <div className="shrink-0">
+        {/* CTAs */}
+        <div className="shrink-0 flex flex-col gap-2">
+          <Link
+            href={`/player/${params.slug}/presentation?season=${season}`}
+            className="px-4 py-2 rounded-lg text-sm font-medium border transition-colors text-center"
+            style={{ borderColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.6)" }}
+          >
+            ⬛ Présentation
+          </Link>
           <Link
             href={`/compare?a=${params.slug}`}
-            className="px-4 py-2 rounded-lg text-sm font-medium border border-orange-500/40 text-orange-400 hover:bg-orange-500/10 transition-colors"
+            className="px-4 py-2 rounded-lg text-sm font-medium border border-orange-500/40 text-orange-400 hover:bg-orange-500/10 transition-colors text-center"
           >
             Comparer →
           </Link>
