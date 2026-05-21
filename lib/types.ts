@@ -93,6 +93,17 @@ export interface TeamSummary {
   n_players: number
   top_player: string | null
   rank: number
+  // LNR standings
+  lnr_rank: number | null
+  played: number | null
+  won: number | null
+  drawn: number | null
+  lost: number | null
+  bonus_off: number | null
+  bonus_def: number | null
+  pts_for: number | null
+  pts_against: number | null
+  points: number | null
 }
 
 export interface TeamDetail {
