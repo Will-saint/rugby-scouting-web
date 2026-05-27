@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { api } from "@/lib/api"
@@ -121,11 +121,30 @@ export function ComparatorClient({ allPlayers }: { allPlayers: PlayerRank[] }) {
 
   const verdict = generateVerdict()
 
+  const [copied, setCopied] = useState(false)
+  const copyLink = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }, [])
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
-      <h1 className="text-2xl font-bold text-white">Comparateur</h1>
+      <div className="flex items-baseline justify-between">
+        <h1 className="text-2xl font-bold text-white">Comparateur</h1>
+        {playerA && playerB && (
+          <button
+            onClick={copyLink}
+            className="text-xs px-3 py-1.5 rounded-full border transition-colors"
+            style={{ borderColor: "#1e2d42", color: copied ? "#4ade80" : "#94a3b8", background: "#111827" }}
+          >
+            {copied ? "✓ Lien copié" : "⎘ Partager"}
+          </button>
+        )}
+      </div>
 
-      {/* Selectors */}
+      {/* Player selectors */}
       <div className="grid sm:grid-cols-2 gap-6">
         <PlayerSelector label="Joueur A" allPlayers={allPlayers} selected={slugA} onSelect={setSlugA} />
         <PlayerSelector label="Joueur B" allPlayers={allPlayers} selected={slugB} onSelect={setSlugB} />

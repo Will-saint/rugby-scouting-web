@@ -132,6 +132,7 @@ export interface PlayerRank {
   form_trend: string
   confidence_badge: string
   badges: AwardBadge[]
+  matches_played: number | null
 }
 
 export interface InternationalPlayer {

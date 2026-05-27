@@ -1,7 +1,8 @@
 "use client"
-import { useState, useMemo } from "react"
+import { useState, useMemo, useRef } from "react"
 import type { CSSProperties } from "react"
 import Link from "next/link"
+import { useVirtualizer } from "@tanstack/react-virtual"
 import type { PlayerRank, TeamSummary } from "@/lib/types"
 import { TierBadge } from "@/components/TierBadge"
 import { RatingBar } from "@/components/RatingBar"
@@ -15,20 +16,34 @@ interface Props { players: PlayerRank[]; teams: TeamSummary[]; seasons: string[]
 const TIERS = ["ALL", "LEGENDAIRE", "OR", "ARGENT", "BRONZE", "STANDARD"]
 
 export function LeaderboardClient({ players, teams, seasons, currentSeason }: Props) {
-  const [position, setPosition] = useState("ALL")
-  const [team, setTeam]         = useState("ALL")
-  const [tier, setTier]         = useState("ALL")
-  const [search, setSearch]     = useState("")
+  const [position, setPosition]   = useState("ALL")
+  const [team, setTeam]           = useState("ALL")
+  const [tier, setTier]           = useState("ALL")
+  const [search, setSearch]       = useState("")
+  const [activeOnly, setActive]   = useState(true)
 
   const filtered = useMemo(() => players.filter((p) => {
+    if (activeOnly && (p.matches_played ?? 0) < 3) return false
     if (position !== "ALL" && p.position_group !== position) return false
     if (team     !== "ALL" && p.team           !== team)     return false
     if (tier     !== "ALL" && p.tier           !== tier)     return false
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false
     return true
-  }), [players, position, team, tier, search])
+  }), [players, position, team, tier, search, activeOnly])
 
   const teamNames = ["ALL", ...teams.map((t) => t.team)]
+
+  const parentRef = useRef<HTMLDivElement>(null)
+  const rowVirtualizer = useVirtualizer({
+    count: filtered.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 65,
+    overscan: 8,
+  })
+  const virtualRows = rowVirtualizer.getVirtualItems()
+  const totalSize = rowVirtualizer.getTotalSize()
+  const paddingTop = virtualRows.length > 0 ? (virtualRows[0]?.start ?? 0) : 0
+  const paddingBottom = virtualRows.length > 0 ? totalSize - (virtualRows[virtualRows.length - 1]?.end ?? 0) : 0
 
   const selStyle: CSSProperties = {
     background: "var(--color-paper)",
@@ -86,12 +101,24 @@ export function LeaderboardClient({ players, teams, seasons, currentSeason }: Pr
           style={{ ...selStyle, border: "1px solid var(--color-line-2)" }}>
           {TIERS.map((t) => <option key={t} value={t}>{t === "ALL" ? "Tous les tiers" : t}</option>)}
         </select>
+        <button
+          onClick={() => setActive((v) => !v)}
+          className="px-4 py-2 rounded-full border text-sm transition-colors"
+          style={{
+            border: "1px solid var(--color-line-2)",
+            background: activeOnly ? "var(--color-forest)" : "var(--color-paper)",
+            color: activeOnly ? "#fff" : "var(--color-muted)",
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          Actifs uniquement
+        </button>
       </div>
 
       {/* Table */}
-      <div className="border-b" style={{ borderColor: "var(--color-line)" }}>
+      <div ref={parentRef} className="border-b overflow-y-auto" style={{ borderColor: "var(--color-line)", maxHeight: "calc(100vh - 340px)" }}>
         <table className="w-full text-sm">
-          <thead style={{ background: "var(--color-paper-2)" }}>
+          <thead style={{ background: "var(--color-paper-2)", position: "sticky", top: 0, zIndex: 1 }}>
             <tr className="border-b font-mono text-left text-xs tracking-wider uppercase"
               style={{ borderColor: "var(--color-line)", color: "var(--color-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
               <th className="px-6 sm:px-12 py-3 w-12">#</th>
@@ -105,47 +132,53 @@ export function LeaderboardClient({ players, teams, seasons, currentSeason }: Pr
             </tr>
           </thead>
           <tbody>
-            {filtered.map((p) => (
-              <tr key={p.lnr_slug} className="border-b transition-colors hover:bg-stone-100/40 group"
-                style={{ borderColor: "var(--color-line)" }}>
-                <td className="px-6 sm:px-12 py-4 font-serif italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", color: "var(--color-muted)", fontSize: p.rank <= 3 ? 24 : 16 }}>
-                  {p.rank <= 3 ? ["1", "2", "3"][p.rank - 1] : p.rank}
-                </td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center gap-2">
-                    <Link href={`/player/${p.lnr_slug}`}
-                      className="font-semibold transition-colors group-hover:underline"
-                      style={{ color: "var(--color-ink)", textDecorationColor: "var(--color-terra)" }}>
-                      {p.name}
-                    </Link>
-                    {p.badges && p.badges.length > 0 && (
-                      <span title={p.badges.map(b => `${b.short}${b.year ? ` ${b.year}` : ""}`).join(" · ")}
-                        className="text-xs leading-none" style={{ color: "#d4af37" }}>
-                        ★
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-1"><TierBadge tier={p.tier} size="xs" /></div>
-                </td>
-                <td className="px-4 py-4 text-xs hidden sm:table-cell" style={{ color: "var(--color-muted)" }}>
-                  {POSITION_LABELS[p.position_group] || p.position_group}
-                </td>
-                <td className="px-4 py-4 text-xs hidden md:table-cell" style={{ color: "var(--color-muted)" }}>{p.team}</td>
-                <td className="px-4 py-4 text-xs hidden lg:table-cell" style={{ color: "var(--color-muted)" }}>{p.age ?? "—"}</td>
-                <td className="px-4 py-4 text-xs hidden lg:table-cell" style={{ color: "var(--color-muted)" }}>{p.nationality ?? "—"}</td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center gap-2">
-                    <span className="font-serif text-xl tabular-nums" style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--color-ink)" }}>
-                      {p.rating}
-                    </span>
-                    <div className="flex-1 hidden sm:block">
-                      <RatingBar rating={p.rating} tier={p.tier} size="sm" />
+            {paddingTop > 0 && <tr><td style={{ height: paddingTop }} colSpan={8} /></tr>}
+            {virtualRows.map((vr) => {
+              const p = filtered[vr.index]!
+              return (
+                <tr key={p.lnr_slug} data-index={vr.index} ref={rowVirtualizer.measureElement}
+                  className="border-b transition-colors hover:bg-stone-100/40 group"
+                  style={{ borderColor: "var(--color-line)" }}>
+                  <td className="px-6 sm:px-12 py-4 font-serif italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", color: "var(--color-muted)", fontSize: p.rank <= 3 ? 24 : 16 }}>
+                    {p.rank <= 3 ? ["1", "2", "3"][p.rank - 1] : p.rank}
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="flex items-center gap-2">
+                      <Link href={`/player/${p.lnr_slug}`}
+                        className="font-semibold transition-colors group-hover:underline"
+                        style={{ color: "var(--color-ink)", textDecorationColor: "var(--color-terra)" }}>
+                        {p.name}
+                      </Link>
+                      {p.badges && p.badges.length > 0 && (
+                        <span title={p.badges.map(b => `${b.short}${b.year ? ` ${b.year}` : ""}`).join(" · ")}
+                          className="text-xs leading-none" style={{ color: "#d4af37" }}>
+                          ★
+                        </span>
+                      )}
                     </div>
-                  </div>
-                </td>
-                <td className="px-4 pr-6 sm:pr-12 py-4 text-center font-mono text-xs" style={{ color: "var(--color-muted)" }}>{p.form_trend}</td>
-              </tr>
-            ))}
+                    <div className="mt-1"><TierBadge tier={p.tier} size="xs" /></div>
+                  </td>
+                  <td className="px-4 py-4 text-xs hidden sm:table-cell" style={{ color: "var(--color-muted)" }}>
+                    {POSITION_LABELS[p.position_group] || p.position_group}
+                  </td>
+                  <td className="px-4 py-4 text-xs hidden md:table-cell" style={{ color: "var(--color-muted)" }}>{p.team}</td>
+                  <td className="px-4 py-4 text-xs hidden lg:table-cell" style={{ color: "var(--color-muted)" }}>{p.age ?? "—"}</td>
+                  <td className="px-4 py-4 text-xs hidden lg:table-cell" style={{ color: "var(--color-muted)" }}>{p.nationality ?? "—"}</td>
+                  <td className="px-4 py-4">
+                    <div className="flex items-center gap-2">
+                      <span className="font-serif text-xl tabular-nums" style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--color-ink)" }}>
+                        {p.rating}
+                      </span>
+                      <div className="flex-1 hidden sm:block">
+                        <RatingBar rating={p.rating} tier={p.tier} size="sm" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 pr-6 sm:pr-12 py-4 text-center font-mono text-xs" style={{ color: "var(--color-muted)" }}>{p.form_trend}</td>
+                </tr>
+              )
+            })}
+            {paddingBottom > 0 && <tr><td style={{ height: paddingBottom }} colSpan={8} /></tr>}
           </tbody>
         </table>
         {filtered.length === 0 && (
