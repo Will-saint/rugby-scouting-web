@@ -102,7 +102,7 @@ function PlayerSelector({
             <>
               {selected.photo_url && (
                 <div className="w-6 h-6 rounded-full overflow-hidden relative shrink-0">
-                  <Image src={selected.photo_url} alt="" fill className="object-cover" unoptimized />
+                  <Image src={selected.photo_url} alt="" fill className="object-cover" />
                 </div>
               )}
               <div className="min-w-0">

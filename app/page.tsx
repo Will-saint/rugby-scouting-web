@@ -130,7 +130,7 @@ export default async function HomePage() {
           {/* Photo */}
           <div className="relative rounded-lg overflow-hidden border" style={{ aspectRatio: "4/5", background: "repeating-linear-gradient(45deg, var(--color-paper-2) 0 16px, var(--color-paper-3) 16px 17px)", borderColor: "var(--color-line)" }}>
             {top1Detail?.photo_url ? (
-              <Image src={top1Detail.photo_url} alt={top1.name} fill className="object-cover object-top" unoptimized />
+              <Image src={top1Detail.photo_url} alt={top1.name} fill className="object-cover object-top" />
             ) : (
               <>
                 <div className="absolute inset-6 border border-dashed" style={{ borderColor: "rgba(24,27,22,0.25)" }} />

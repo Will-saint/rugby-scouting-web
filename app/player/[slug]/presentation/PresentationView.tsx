@@ -81,7 +81,6 @@ export function PresentationView({ player, season, slug }: Props) {
                 alt={player.name ?? ""}
                 fill
                 className="object-cover object-top"
-                unoptimized
                 priority
               />
             ) : (
@@ -197,7 +196,7 @@ export function PresentationView({ player, season, slug }: Props) {
             <div className="flex-1 grid" style={{ gridTemplateColumns: "1fr 1.6fr" }}>
               <div className="relative overflow-hidden">
                 {player.photo_url && (
-                  <Image src={player.photo_url} alt={player.name ?? ""} fill className="object-cover object-top" unoptimized priority />
+                  <Image src={player.photo_url} alt={player.name ?? ""} fill className="object-cover object-top" priority />
                 )}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 60%, #0a1628 100%)" }} />
               </div>

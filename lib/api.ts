@@ -1,7 +1,7 @@
 import type {
   PlayerSummary, PlayerDetail, PlayerRank, PlayersResponse,
   TeamSummary, TeamDetail, MatchPrediction, Meta, SeasonRating, InternationalPlayer,
-  CommentaryResponse, ScoutResult,
+  CommentaryResponse, ScoutResult, PredictCalibration,
 } from "./types"
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8010/api/v1"
@@ -64,6 +64,9 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ home, away, season }),
     }),
+
+  predictCalibration: (season = "2025-2026") =>
+    fetcher<PredictCalibration>(`/predict/calibration?season=${season}`),
 
   commentary: (slug: string, season = "2025-2026") =>
     fetcher<CommentaryResponse>(`/players/${slug}/commentary?season=${season}`),

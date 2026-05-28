@@ -195,6 +195,12 @@ export interface Meta {
   last_updated: string | null
 }
 
+export interface PredictCalibration {
+  brier_score: number | null
+  accuracy: number | null
+  n_matches: number
+}
+
 export interface PlayersResponse {
   total: number
   offset: number

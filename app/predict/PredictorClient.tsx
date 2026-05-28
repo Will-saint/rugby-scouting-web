@@ -1,9 +1,9 @@
 "use client"
 import { useState } from "react"
 import { api } from "@/lib/api"
-import type { MatchPrediction } from "@/lib/types"
+import type { MatchPrediction, PredictCalibration } from "@/lib/types"
 
-export function PredictorClient({ teams }: { teams: string[] }) {
+export function PredictorClient({ teams, calibration }: { teams: string[]; calibration: PredictCalibration | null }) {
   const [home, setHome] = useState("")
   const [away, setAway] = useState("")
   const [result, setResult] = useState<MatchPrediction | null>(null)
@@ -27,11 +27,36 @@ export function PredictorClient({ teams }: { teams: string[] }) {
   const homeWins = result && result.home_win_pct > result.away_win_pct
   const awayWins = result && result.away_win_pct > result.home_win_pct
 
+  const brierColor = calibration?.brier_score == null ? "#64748b"
+    : calibration.brier_score < 0.20 ? "#4ade80"
+    : calibration.brier_score < 0.25 ? "#facc15"
+    : "#f87171"
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-white">Prédicteur de match</h1>
-        <p className="text-slate-400 text-sm mt-1">Probabilité de victoire basée sur les notes des effectifs</p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Prédicteur de match</h1>
+          <p className="text-slate-400 text-sm mt-1">Probabilité de victoire basée sur les notes des effectifs</p>
+        </div>
+        {calibration && calibration.brier_score != null && (
+          <div className="rounded-lg border px-4 py-2 text-right shrink-0" style={{ background: "#111827", borderColor: "#1e2d42" }}>
+            <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Calibration modèle</div>
+            <div className="flex items-center gap-4">
+              <div>
+                <span className="font-mono font-bold text-lg" style={{ color: brierColor }}>
+                  {calibration.brier_score.toFixed(3)}
+                </span>
+                <span className="text-xs text-slate-500 ml-1">Brier</span>
+              </div>
+              <div>
+                <span className="font-mono font-bold text-lg text-white">{calibration.accuracy}%</span>
+                <span className="text-xs text-slate-500 ml-1">précision</span>
+              </div>
+            </div>
+            <div className="text-xs text-slate-600 mt-1">sur {calibration.n_matches} matchs historiques</div>
+          </div>
+        )}
       </div>
 
       {/* Team selectors */}

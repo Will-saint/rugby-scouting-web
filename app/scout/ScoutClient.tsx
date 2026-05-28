@@ -180,7 +180,7 @@ export function ScoutClient({ seasons, teams }: Props) {
                     {/* Photo */}
                     <div className="relative w-12 h-14 rounded-lg overflow-hidden shrink-0 bg-stone-200">
                       {p.photo_url ? (
-                        <Image src={p.photo_url} alt={p.name ?? ""} fill className="object-cover object-top" unoptimized />
+                        <Image src={p.photo_url} alt={p.name ?? ""} fill className="object-cover object-top" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-xl">🏉</div>
                       )}

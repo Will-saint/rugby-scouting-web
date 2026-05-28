@@ -85,7 +85,6 @@ export default async function PlayerPage({ params, searchParams }: Props) {
               alt={player.name}
               fill
               className="object-cover object-top"
-              unoptimized
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-4xl">🏉</div>
