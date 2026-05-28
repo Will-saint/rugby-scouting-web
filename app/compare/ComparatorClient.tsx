@@ -78,10 +78,12 @@ export function ComparatorClient({ allPlayers }: { allPlayers: PlayerRank[] }) {
   const [playerA, setPlayerA] = useState<PlayerDetail | null>(null)
   const [playerB, setPlayerB] = useState<PlayerDetail | null>(null)
   const [loading, setLoading] = useState(false)
+  const [fetchError, setFetchError] = useState("")
 
   useEffect(() => {
     if (!slugA && !slugB) return
     setLoading(true)
+    setFetchError("")
     Promise.all([
       slugA ? api.player(slugA) : Promise.resolve(null),
       slugB ? api.player(slugB) : Promise.resolve(null),
@@ -93,7 +95,11 @@ export function ComparatorClient({ allPlayers }: { allPlayers: PlayerRank[] }) {
       if (slugA) qs.set("a", slugA)
       if (slugB) qs.set("b", slugB)
       router.replace(`/compare?${qs}`, { scroll: false })
-    }).catch(() => setLoading(false))
+    }).catch((err) => {
+      setLoading(false)
+      setFetchError("Impossible de charger les données joueur. Vérifiez votre connexion ou réessayez.")
+      console.error(err)
+    })
   }, [slugA, slugB, router])
 
   const radarData = RADAR_AXES.map(({ key, label }) => ({
@@ -151,6 +157,7 @@ export function ComparatorClient({ allPlayers }: { allPlayers: PlayerRank[] }) {
       </div>
 
       {loading && <div className="text-center text-slate-400 py-12">Chargement…</div>}
+      {fetchError && <div className="text-center text-red-400 text-sm py-4">{fetchError}</div>}
 
       {playerA && playerB && !loading && (
         <>
