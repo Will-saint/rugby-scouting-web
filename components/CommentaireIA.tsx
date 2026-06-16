@@ -1,22 +1,25 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { api } from "@/lib/api"
 
 interface Props { slug: string; season: string }
 
 export function CommentaireIA({ slug, season }: Props) {
   const [text, setText] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [triggered, setTriggered] = useState(false)
   const [available, setAvailable] = useState(true)
 
-  useEffect(() => {
+  function generate() {
+    setTriggered(true)
+    setLoading(true)
     api.commentary(slug, season)
       .then(r => { setText(r.commentary); setAvailable(r.available) })
       .catch(() => setAvailable(false))
       .finally(() => setLoading(false))
-  }, [slug, season])
+  }
 
-  if (!available && !loading) return null
+  if (!available && triggered) return null
 
   return (
     <div className="rounded-xl border p-5" style={{ background: "#111827", borderColor: "#1e2d42" }}>
@@ -28,7 +31,15 @@ export function CommentaireIA({ slug, season }: Props) {
           Claude Haiku
         </span>
       </div>
-      {loading ? (
+      {!triggered ? (
+        <button
+          onClick={generate}
+          className="text-sm px-3 py-1.5 rounded-lg border transition-colors hover:opacity-80"
+          style={{ borderColor: "var(--color-terra)", color: "var(--color-terra)", background: "rgba(185,79,58,0.08)" }}
+        >
+          Générer l'analyse →
+        </button>
+      ) : loading ? (
         <div className="space-y-2">
           {[80, 95, 65].map((w, i) => (
             <div key={i} className="h-3.5 rounded animate-pulse" style={{ width: `${w}%`, background: "rgba(255,255,255,0.06)" }} />

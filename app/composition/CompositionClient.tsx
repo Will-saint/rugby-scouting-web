@@ -211,8 +211,11 @@ export function CompositionClient({ allPlayers, apiBase }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slugs }),
       })
+      if (!res.ok) throw new Error(`Erreur API (${res.status})`)
       const data = await res.json()
       setResult(data)
+    } catch (err) {
+      console.error("[Composition]", err)
     } finally {
       setLoading(false)
     }

@@ -115,7 +115,11 @@ export function ComparatorClient({ allPlayers }: { allPlayers: PlayerRank[] }) {
       const vb = playerB[key as keyof PlayerDetail] as number
       return va != null && vb != null && va > vb
     }).length
-    const bWins = COMPARE_ROWS.length - aWins
+    const bWins = COMPARE_ROWS.filter(({ key }) => {
+      const va = playerA[key as keyof PlayerDetail] as number
+      const vb = playerB[key as keyof PlayerDetail] as number
+      return va != null && vb != null && vb > va
+    }).length
     const better = aWins >= bWins ? playerA : playerB
     const worse = aWins >= bWins ? playerB : playerA
     const defDiff = ((playerA.axis_def ?? 0) - (playerB.axis_def ?? 0)).toFixed(0)
